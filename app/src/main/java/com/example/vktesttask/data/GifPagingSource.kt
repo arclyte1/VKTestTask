@@ -38,6 +38,7 @@ class GifPagingSource @Inject constructor(
                 nextKey = nextKey,
             )
         } catch (e: Exception) {
+            e.printStackTrace()
             return LoadResult.Error(e)
         }
     }

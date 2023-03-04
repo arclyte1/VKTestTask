@@ -11,7 +11,13 @@ data class GifDto(
     fun toGif() : Gif {
         return Gif(
             id = id,
-            downsizedImageUrl = images.downsizedImage.url
+            downsizedImageUrl = images.downsizedImage.url ?: "",
+            downsizedImageHeightRatio = if (
+                images.downsizedImage.width != null &&
+                images.downsizedImage.height != null
+            ) {
+                images.downsizedImage.height.toDouble() / images.downsizedImage.width.toDouble()
+            } else 2.0
         )
     }
 }

@@ -7,5 +7,5 @@ class GetTrendingGifsUseCase @Inject constructor(
     private val repository: GifRepository
 ) {
 
-    suspend operator fun invoke() = repository.getTrending()
+    operator fun invoke() = repository.getTrending()
 }

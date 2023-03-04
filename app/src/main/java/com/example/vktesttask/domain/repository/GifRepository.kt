@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface GifRepository {
 
-    suspend fun getTrending(): Flow<PagingData<Gif>>
+    fun getTrending(): Flow<PagingData<Gif>>
 }

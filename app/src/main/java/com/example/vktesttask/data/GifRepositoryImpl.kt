@@ -18,10 +18,10 @@ class GifRepositoryImpl @Inject constructor(
     private val pagingConfig = PagingConfig(
         pageSize = Constants.GIF_PAGE_SIZE,
         initialLoadSize = Constants.GIF_PAGE_SIZE,
-        enablePlaceholders = true
+        enablePlaceholders = false
     )
 
-    override suspend fun getTrending(): Flow<PagingData<Gif>> {
+    override fun getTrending(): Flow<PagingData<Gif>> {
         return Pager(
             pagingConfig
         ) {
