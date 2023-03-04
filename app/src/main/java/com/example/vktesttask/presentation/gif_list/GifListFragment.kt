@@ -3,6 +3,7 @@ package com.example.vktesttask.presentation.gif_list
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,13 +32,20 @@ class GifListFragment : Fragment(R.layout.fragment_gif_list) {
         binding.gifList.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.gifFlow.collectLatest { data ->
-                data.map {
-                    Log.d("Item", it.url)
-                    it
+            viewModel.gifFlowFlow.collectLatest { gifFlow ->
+                gifFlow.collectLatest { data ->
+                    data.map {
+                        Log.d("Item", it.url)
+                        it
+                    }
+                    adapter.submitData(data)
                 }
-                adapter.submitData(data)
             }
         }
+
+        binding.searchEditText.addTextChangedListener { text ->
+            viewModel.searchTextChanged(text.toString())
+        }
+
     }
 }

@@ -1,7 +1,6 @@
 package com.example.vktesttask.di
 
 import com.example.vktesttask.common.Constants
-import com.example.vktesttask.data.GifPagingSource
 import com.example.vktesttask.data.GifRepositoryImpl
 import com.example.vktesttask.data.remote.GiphyApi
 import com.example.vktesttask.domain.repository.GifRepository
@@ -29,7 +28,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGifRepository(gifPagingSource: GifPagingSource): GifRepository {
-        return GifRepositoryImpl(gifPagingSource)
+    fun provideGifRepository(api: GiphyApi): GifRepository {
+        return GifRepositoryImpl(api)
     }
 }

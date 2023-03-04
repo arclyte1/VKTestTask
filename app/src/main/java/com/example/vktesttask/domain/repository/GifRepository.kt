@@ -7,4 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface GifRepository {
 
     fun getTrending(): Flow<PagingData<Gif>>
+
+    fun search(searchQuery: String?): Flow<PagingData<Gif>>
 }
