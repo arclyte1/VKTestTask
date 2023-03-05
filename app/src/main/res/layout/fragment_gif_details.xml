@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/nothing_found_lens" />
+        tools:srcCompat="@drawable/nothing_found_lens"
+        android:contentDescription="@string/gif" />
 
     <ImageView
         android:id="@+id/bottomGradient"
