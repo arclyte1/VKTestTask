@@ -24,10 +24,4 @@ interface GiphyApi {
         @Query("offset") offset: Int,
         @Query("q") searchQuery: String,
     ) : GifListResponse
-
-    @GET("gifs/{id}")
-    suspend fun getById(
-        @Path("id") id: String,
-        @Query("api_key") apiKey: String,
-    ) : GifDetailsResponse
 }

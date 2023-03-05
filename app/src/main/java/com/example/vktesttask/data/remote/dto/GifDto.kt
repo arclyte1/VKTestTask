@@ -7,10 +7,7 @@ data class GifDto(
     @SerializedName("id") val id: String,
     @SerializedName("url") val url: String,
     @SerializedName("images") val images: ImagesDto,
-    @SerializedName("source_tld") val source: String?, //
-    @SerializedName("source") val sourceUrl: String?, //
     @SerializedName("title") val title: String?,
-    @SerializedName("import_datetime") val updatedDate: String?, //
     @SerializedName("user") val user: UserDto?,
 ) {
 

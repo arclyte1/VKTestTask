@@ -37,7 +37,6 @@ class GifDetailsFragment : Fragment(R.layout.fragment_gif_details) {
 
     private val args by navArgs<GifDetailsFragmentArgs>()
     private lateinit var binding: FragmentGifDetailsBinding
-    private val viewModel: GifDetailsViewModel by viewModels()
     private val setBackgroundColorRequestListener = object : RequestListener<GifDrawable> {
         override fun onLoadFailed(
             e: GlideException?,

@@ -28,20 +28,14 @@ class GifRepositoryImpl @Inject constructor(
     }
 
     override fun search(searchQuery: String?): Flow<PagingData<Gif>> {
-        Log.d("Repository", searchQuery.toString())
         return Pager(
             pagingConfig
         ) {
             GifPagingSource(api, searchQuery)
         }.flow.map { pagingData ->
             pagingData.map { gifDto ->
-                Log.d("Repository", "date: ${gifDto.updatedDate}")
                 gifDto.toGif()
             }
         }
-    }
-
-    override suspend fun getGifDetails(gifId: String): Gif {
-        return api.getById(gifId, Constants.GIPHY_API_KEY).data.toGif()
     }
 }
