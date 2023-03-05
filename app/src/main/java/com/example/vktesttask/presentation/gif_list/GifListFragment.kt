@@ -1,7 +1,7 @@
 package com.example.vktesttask.presentation.gif_list
 
 import android.os.Bundle
-import android.util.Log
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class GifListFragment : Fragment(R.layout.fragment_gif_list) {
 
@@ -45,8 +46,15 @@ class GifListFragment : Fragment(R.layout.fragment_gif_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: relative span count
-        binding.gifList.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        binding.gifList.post { // relative span count
+            val metrics = DisplayMetrics()
+            requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
+            val logicalDensity = metrics.density
+            binding.gifList.layoutManager = StaggeredGridLayoutManager(
+                (binding.root.width / (SPAN_WIDTH_DP * logicalDensity)).toInt(),
+                LinearLayoutManager.VERTICAL
+            )
+        }
         binding.gifList.adapter = adapter
         postponeEnterTransition()
         binding.gifList.viewTreeObserver.addOnPreDrawListener {
@@ -54,7 +62,6 @@ class GifListFragment : Fragment(R.layout.fragment_gif_list) {
             true
         }
         adapter.addOnPagesUpdatedListener {
-            Log.d("Fragment", adapter.itemCount.toString())
             binding.nothingFoundImage.isVisible = adapter.itemCount == 0
             binding.nothingFoundText.isVisible = adapter.itemCount == 0
             if (adapter.itemCount == 0) {
@@ -87,10 +94,13 @@ class GifListFragment : Fragment(R.layout.fragment_gif_list) {
             gif = gif,
             downsizedBitmap = imageView.drawToBitmap(),
         )
-        Log.d("FragmentList", imageView.transitionName)
         findNavController().navigate(
             directions = directions,
             navigatorExtras = FragmentNavigatorExtras(imageView to imageView.transitionName)
         )
+    }
+
+    companion object {
+        const val SPAN_WIDTH_DP = 180
     }
 }

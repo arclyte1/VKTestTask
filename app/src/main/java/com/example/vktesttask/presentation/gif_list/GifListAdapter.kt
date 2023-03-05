@@ -64,9 +64,6 @@ class GifListAdapter : PagingDataAdapter<Gif, GifListAdapter.ViewHolder>(
                         target: Target<GifDrawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        binding.root.setOnClickListener {
-                            itemClickListener(item, binding.imageView, null)
-                        }
                         return false
                     }
 

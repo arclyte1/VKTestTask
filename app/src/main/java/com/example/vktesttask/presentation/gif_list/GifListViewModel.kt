@@ -36,9 +36,7 @@ class GifListViewModel @Inject constructor(
     fun searchTextChanged(text: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            Log.d("ViewModel", text)
             delay(DEBOUNCE_DELAY)
-            Log.d("ViewModel", "debounced")
             searchText(text)
         }
     }
@@ -48,7 +46,6 @@ class GifListViewModel @Inject constructor(
         gifFlowFlow.value = if (text == "") {
             trendingGifFlow
         } else {
-            Log.d("ViewModel", "searching...")
             searchGifsUseCase(text).cachedIn(viewModelScope)
         }
     }

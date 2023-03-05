@@ -19,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
@@ -83,7 +84,6 @@ class GifDetailsFragment : Fragment(R.layout.fragment_gif_details) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.gif.transitionName = "gif${args.gif.id}"
-        Log.d("FragmentDetails", binding.gif.transitionName)
 
         val animation = TransitionInflater.from(requireContext()).inflateTransition(
             android.R.transition.move
@@ -112,7 +112,6 @@ class GifDetailsFragment : Fragment(R.layout.fragment_gif_details) {
             Glide.with(this)
                 .asGif()
                 .placeholder(R.drawable.profile_avatar_placeholder)
-                .centerCrop()
                 .load(gif.user.avatarUrl)
                 .circleCrop()
                 .into(binding.authorAvatar)
@@ -130,13 +129,13 @@ class GifDetailsFragment : Fragment(R.layout.fragment_gif_details) {
         }
 
         previewDrawable?.let { gifDrawable ->
-            binding.gif.setImageDrawable(gifDrawable)
             setBackgroundColorFromBitmap(gifDrawable.toBitmap())
         }
 
         Glide.with(this@GifDetailsFragment)
             .asGif()
-            .placeholder(SharedObjects.selectedGifDrawable)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(previewDrawable)
             .load(gif.originalImageUrl)
             .listener(setBackgroundColorRequestListener)
             .into(binding.gif)
