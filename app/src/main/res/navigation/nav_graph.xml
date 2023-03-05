@@ -19,8 +19,5 @@
         <argument
             android:name="gif"
             app:argType="com.example.vktesttask.domain.model.Gif" />
-        <argument
-            android:name="downsizedBitmap"
-            app:argType="android.graphics.Bitmap" />
     </fragment>
 </navigation>

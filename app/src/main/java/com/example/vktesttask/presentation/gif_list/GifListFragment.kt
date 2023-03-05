@@ -91,8 +91,7 @@ class GifListFragment : Fragment(R.layout.fragment_gif_list) {
     private fun navigateToDetails(gif: Gif, imageView: ImageView, gifDrawable: GifDrawable?) {
         SharedObjects.selectedGifDrawable = gifDrawable
         val directions = GifListFragmentDirections.actionGifListFragmentToGifDetailsFragment(
-            gif = gif,
-            downsizedBitmap = imageView.drawToBitmap(),
+            gif = gif
         )
         findNavController().navigate(
             directions = directions,
