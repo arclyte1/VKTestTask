@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.example.vktesttask.domain.model.Gif
 import com.example.vktesttask.domain.usecase.GetTrendingGifsUseCase
 import com.example.vktesttask.domain.usecase.SearchGifsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,13 +22,9 @@ class GifListViewModel @Inject constructor(
     private val searchGifsUseCase: SearchGifsUseCase,
 ): ViewModel() {
 
-    private val trendingGifFlow: Flow<PagingData<GifListItemVo>> = getTrendingGifsUseCase().map { data ->
-        data.map { gif ->
-            GifListItemVo.fromGif(gif)
-        }
-    }.cachedIn(viewModelScope)
+    private val trendingGifFlow: Flow<PagingData<Gif>> = getTrendingGifsUseCase().cachedIn(viewModelScope)
 
-    var gifFlowFlow: MutableStateFlow<Flow<PagingData<GifListItemVo>>>
+    var gifFlowFlow: MutableStateFlow<Flow<PagingData<Gif>>>
         private set
 
     init {
@@ -52,11 +49,7 @@ class GifListViewModel @Inject constructor(
             trendingGifFlow
         } else {
             Log.d("ViewModel", "searching...")
-            searchGifsUseCase(text).map { data ->
-                data.map { gif ->
-                    GifListItemVo.fromGif(gif)
-                }
-            }.cachedIn(viewModelScope)
+            searchGifsUseCase(text).cachedIn(viewModelScope)
         }
     }
 

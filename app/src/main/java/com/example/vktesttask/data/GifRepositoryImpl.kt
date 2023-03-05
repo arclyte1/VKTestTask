@@ -35,8 +35,13 @@ class GifRepositoryImpl @Inject constructor(
             GifPagingSource(api, searchQuery)
         }.flow.map { pagingData ->
             pagingData.map { gifDto ->
+                Log.d("Repository", "date: ${gifDto.updatedDate}")
                 gifDto.toGif()
             }
         }
+    }
+
+    override suspend fun getGifDetails(gifId: String): Gif {
+        return api.getById(gifId, Constants.GIPHY_API_KEY).data.toGif()
     }
 }

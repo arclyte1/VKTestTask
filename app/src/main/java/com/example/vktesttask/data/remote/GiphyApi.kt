@@ -1,7 +1,9 @@
 package com.example.vktesttask.data.remote
 
+import com.example.vktesttask.data.remote.dto.GifDetailsResponse
 import com.example.vktesttask.data.remote.dto.GifListResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GiphyApi {
@@ -22,4 +24,10 @@ interface GiphyApi {
         @Query("offset") offset: Int,
         @Query("q") searchQuery: String,
     ) : GifListResponse
+
+    @GET("gifs/{id}")
+    suspend fun getById(
+        @Path("id") id: String,
+        @Query("api_key") apiKey: String,
+    ) : GifDetailsResponse
 }

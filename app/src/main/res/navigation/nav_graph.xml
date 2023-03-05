@@ -7,5 +7,20 @@
     <fragment
         android:id="@+id/gifListFragment"
         android:name="com.example.vktesttask.presentation.gif_list.GifListFragment"
-        android:label="GifListFragment" />
+        android:label="GifListFragment" >
+        <action
+            android:id="@+id/action_gifListFragment_to_gifDetailsFragment"
+            app:destination="@id/gifDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gifDetailsFragment"
+        android:name="com.example.vktesttask.presentation.gif_details.GifDetailsFragment"
+        android:label="GifDetailsFragment" >
+        <argument
+            android:name="gif"
+            app:argType="com.example.vktesttask.domain.model.Gif" />
+        <argument
+            android:name="downsizedBitmap"
+            app:argType="android.graphics.Bitmap" />
+    </fragment>
 </navigation>
